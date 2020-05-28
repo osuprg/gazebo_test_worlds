@@ -1,3 +1,19 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <world name="default">
+
+
+    <!-- These two includes should be in basically every world file.
+         They handle a basic global light source and the floor of the world-->
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <!-- A ground plane -->
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
 <model name='grey_wall0'>
       <static>1</static>
       <link name='link'>
@@ -2712,3 +2728,6 @@
       </link>
       <pose>26.0 16.0 -1 0 0 0.0</pose>
     </model>
+
+  </world>
+</sdf>
