@@ -19,6 +19,9 @@
             <scale>1.000000</scale>
             <interpolate_x>true</interpolate_x>
          </animation>
+         <skin>
+           <filename>walk.dae</filename>
+         </skin>
          <script>
             <loop>true</loop>
             <delay_start>0.000000</delay_start>
