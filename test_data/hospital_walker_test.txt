@@ -1,0 +1,47 @@
+#This is a test
+new_model_1 new_actor_1 0.0 4.0 15.0 0.0
+speed 1.4
+goto 8.5 15.0 0.0
+wait 2
+goto 8.5 4.0 -1.57
+wait 2
+goto 15.5 4.0 0.0
+wait 2
+goto 15.5 15.0 1.57
+speed 4
+goto 27.0 15.0 0.0
+wait 2
+goto 27.0 4.0 -1.57
+goto 15.5 4.0 3.14
+goto 15.5 15.0 1.57
+wait 3
+goto 8.5 15.0 3.14
+goto 8.5 4.0 -1.57
+speed 1.8
+goto 4.0 4.0 3.14
+goto 4.0 15.0 1.57
+wait 2
+end
+#Second model
+new_model_2 new_actor_2 0.0 8.5 15.0 0.0
+speed 1.4
+goto 8.5 4.0 -1.57
+wait 2
+goto 15.5 4.0 0.0
+wait 2
+goto 15.5 15.0 1.57
+speed 4
+goto 27.0 15.0 0.0
+wait 2
+goto 27.0 4.0 -1.57
+goto 15.5 4.0 3.14
+goto 15.5 15.0 1.57
+wait 3
+goto 8.5 15.0 3.14
+goto 8.5 4.0 -1.57
+speed 1.8
+goto 4.0 4.0 3.14
+goto 4.0 15.0 1.57
+wait 2
+goto 8.5 15.0 0.0
+end

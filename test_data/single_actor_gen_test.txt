@@ -1,0 +1,8 @@
+new_model new_actor 0.0 0.0 0.0 0.0
+speed 2.5
+wait 5.0
+goto 1.4 5.3 0.8
+goto 6.4 19.3 1.5
+goto 6.4 5.3 2.6
+goto 0.0 0.0 3.14
+end
