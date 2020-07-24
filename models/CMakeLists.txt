@@ -6,6 +6,7 @@ set (dirs
   sun
   small_table
   iRobotCreate
+  walker
 )
 
 foreach(dir ${dirs})

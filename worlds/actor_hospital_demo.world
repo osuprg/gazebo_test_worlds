@@ -2729,16 +2729,16 @@
       <pose>25.75 16.0 -1 0 0 0.0</pose>
     </model>
     <actor name="actor_1">
-       <skin>
-          <filename>walk.dae</filename>
-          <scale>1.0</scale>
-       </skin>
+      <skin>
+         <filename>walk.dae</filename>
+         <scale>1.0</scale>
+      </skin>
+      <animation name="walking">
+         <filename>walk.dae</filename>
+         <scale>1.000000</scale>
+         <interpolate_x>true</interpolate_x>
+      </animation>
        <pose>0 0 0 0 0 0</pose>
-       <animation name="walking">
-          <filename>walk.dae</filename>
-          <scale>1.000000</scale>
-          <interpolate_x>true</interpolate_x>
-       </animation>
        <script>
           <loop>true</loop>
           <delay_start>0.000000</delay_start>
@@ -2969,16 +2969,16 @@
         </script>
       </actor>
       <actor name="actor_2">
-         <skin>
-            <filename>walk.dae</filename>
-            <scale>1.0</scale>
-         </skin>
+        <skin>
+           <filename>walk.dae</filename>
+           <scale>1.0</scale>
+        </skin>
+        <animation name="walking">
+           <filename>walk.dae</filename>
+           <scale>1.000000</scale>
+           <interpolate_x>true</interpolate_x>
+        </animation>
          <pose>0 0 0 0 0 0</pose>
-         <animation name="walking">
-            <filename>walk.dae</filename>
-            <scale>1.000000</scale>
-            <interpolate_x>true</interpolate_x>
-         </animation>
          <script>
             <loop>true</loop>
             <delay_start>0.000000</delay_start>

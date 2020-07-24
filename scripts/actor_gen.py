@@ -44,7 +44,9 @@ def process_lines(lines):
     for line in lines:
         instructions.append(line.split())
         #Essentially skips the line if there aren't any
-        if len(instructions) == 0:
+        if len(instructions) == 0 or len(instructions[i]) == 0:
+            instructions.pop(i)
+            j += 1
             continue
         if comment_chars.find(instructions[i][0][0]) != -1:
             instructions.pop()
@@ -88,8 +90,7 @@ def split_instructions(instructions):
     return separated_instructions
 
 #Processes our instructions into individual waypoints
-#TODO: Fix comments not working if number of words matches number of args
-#      Fix whitespace lines not being ignored
+#TODO: Fix whitespace lines not being ignored
 def make_waypoints(instructions):
     waypoints = []
     speed = actor_speed
@@ -171,8 +172,7 @@ if len(sys.argv) != 2:
     exit()
 
 
-#TODO: Set up for multiple actors in same file
-#      Set up "If name == main" so stuff can be imported as library
+#TODO: Set up "If name == main" so stuff can be imported as library
 file_lines = import_instructions(sys.argv[1])
 processed_lines = process_lines(file_lines)
 processed_instructions = split_instructions(processed_lines)
