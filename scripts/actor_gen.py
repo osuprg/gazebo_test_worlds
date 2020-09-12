@@ -119,6 +119,11 @@ def make_waypoints(instructions):
 
 
 #Code to fix arcing from orientation interpolation
+#Essentially makes the actor face the next point very quickly
+#instead of the change in orientation being split over the entire duration of
+#walking between the waypoints. Actor always walks in the direction it's facing
+#(as far as I can tell) which means the actor would end up walking in arcs
+#instead of lines
 def postprocess_waypoints(waypoint_list):
     i = len(waypoint_list) - 1
     while i > 0:
@@ -173,6 +178,7 @@ if len(sys.argv) != 2:
 
 
 #TODO: Set up "If name == main" so stuff can be imported as library
+#AMMENDED: Refactoring into world_gen class in world_gen.py
 file_lines = import_instructions(sys.argv[1])
 processed_lines = process_lines(file_lines)
 processed_instructions = split_instructions(processed_lines)

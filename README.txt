@@ -1,8 +1,9 @@
 Be sure to include the models directory in you Gazebo models path
   - To do so, add "export GAZEBO_MODEL_PATH=~/[path to package]/models:$GAZEBO_MODEL_PATH" to your .bashrc
+    -Alternatively, run "export GAZEBO_MODEL_PATH=`pwd`/models:$GAZEBO_MODEL_PATH" while in the gazebo_test_worlds directory
   - This will allow you to place model.sdf and model.config files in the models folder in this package.
   - Any properly formatted models in that folder can be imported with <include> <uri> models://[model name] </uri> </include>
-  
+
 Manual additions of model information are required for actors.
 For static models:
   - Option 1: Use a URI to use a model from a different file
