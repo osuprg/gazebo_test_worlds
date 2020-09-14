@@ -2,7 +2,6 @@
 import sys
 import math
 import copy
-from numpy import arctan2
 from math import atan2, sqrt
 from lxml import etree
 from shapely.geometry import MultiLineString, LineString
@@ -52,9 +51,9 @@ class WorldGenerator:
             "material" : {
                 "arg_count" : 1,
                 "arg_func"  : self.arg_count,
-                "cmd_error" : "To be implemented: Usage is 'material [material_uri]'.",
+                "cmd_error" : "To be implemented: Usage is 'material [material_name]'.",
                 "cmd_func"  : self.material_func,
-                "default"   : "model://grey_wall/materials/scripts"
+                "default"   : "vrc/grey_wall"
             },
             "wall" : {
                 "arg_count" : 4,
@@ -120,10 +119,9 @@ class WorldGenerator:
         #String of all the characters that start a comment line
         self.comment_chars = "#"
 
-    #TODO: Check if changes needed
     #Just pulls in the information from the file
-    def import_instructions(self, filename):
-        f = open(filename, "r")
+    def import_instructions(self):
+        f = open(self.file_in, "r")
         lines = f.readlines()
         f.close()
         return lines
@@ -197,102 +195,10 @@ class WorldGenerator:
             i += 1
         return i
 
-    #TODO: Check to see if even needed anymore
-    #Uses "end" command to split overall list into list for individual actors
-    def split_instructions(instructions):
-        separated_instructions = [[]]
-        i = 0
-        for instruction in instructions:
-            if i > len(separated_instructions) - 1:
-                separated_instructions.append([])
-            separated_instructions[i].append(instruction)
-            if instruction[0] == "end":
-                i += 1
-        return separated_instructions
-
-    #TODO: Check if needed once new XML format is used
-    #Processes our instructions into individual waypoints
-    def make_waypoints(instructions):
-        waypoints = []
-        speed = actor_speed
-        time = 0
-        file_out = ""
-        for instruction in instructions:
-            if instruction[0] == "speed":
-                speed = float(instruction[1])
-            elif instruction[0] == "wait":
-                time += float(instruction[1])
-                new_waypoint = [waypoints[-1][0], waypoints[-1][1], waypoints[-1][2]]
-                new_waypoint.append(time)
-                waypoints.append(new_waypoint)
-            elif len(instruction) == 4:
-                dx = round(float(instruction[1]) - float(waypoints[-1][0]), 2)
-                dy = round(float(instruction[2]) - float(waypoints[-1][1]), 2)
-                dt = round(math.sqrt(dx**2 + dy**2)/speed, 2)
-                time += dt
-                new_point = [instruction[1], instruction[2], instruction[3], str(time)]
-                waypoints.append(new_point)
-            elif len(instruction) == 6:
-                file_out = instruction[1] + "_output.txt"
-                waypoints.append([instruction[3], instruction[4], instruction[5], instruction[2]])
-        #        time = instruction[2]
-        return waypoints, file_out
-
-
-    #TODO: Move interpolation fix to other command functions
-    #Code to fix arcing from orientation interpolation
-    #Essentially makes the actor face the next point very quickly
-    #instead of the change in orientation being split over the entire duration of
-    #walking between the waypoints. Actor always walks in the direction it's facing
-    #(as far as I can tell) which means the actor would end up walking in arcs
-    #instead of lines
-    def postprocess_waypoints(waypoint_list):
-        i = len(waypoint_list) - 1
-        while i > 0:
-            x1 = float(waypoint_list[i-1][0])
-            y1 = float(waypoint_list[i-1][1])
-            t1 = float(waypoint_list[i-1][3])
-            x2 = float(waypoint_list[i][0])
-            y2 = float(waypoint_list[i][1])
-            t2 = float(waypoint_list[i][3])
-            dx = x2 - x1
-            dy = y2 - y1
-            dt = t2 - t1
-            tot_len = math.sqrt(dx**2 + dy**2)
-            if tot_len == 0:
-                ux = 0
-                uy = 0
-            else:
-                ux = dx/tot_len
-                uy = dy/tot_len
-            dir = arctan2(uy, ux)
-            speed = tot_len / dt
-            p1 = [str(x1 + ux * 0.05), str(y1 + uy * 0.05), str(dir), str(t1 + 0.05 * speed)]
-            p2 = [str(x2 - ux * 0.05), str(y2 - uy * 0.05), str(dir), str(t2 - 0.05 * speed)]
-            waypoint_list.insert(i, p2)
-            waypoint_list.insert(i, p1)
-            i -= 1
-        return waypoint_list
-
-
-    #TODO: See if even needed once XML format is included
-    #Puts waypoints into their final string form to be exported
-    def export_waypoints(waypoint_list):
-        waypoint_strings = []
-        for waypoint in waypoint_list:
-            new_string = "<waypoint>\n"
-            new_string += "\t<pose>%f %f 0 0 0 %f</pose>\n" % (float(waypoint[0]), float(waypoint[1]), float(waypoint[2]))
-            new_string += "\t<time>%f</time>\n" % float(waypoint[3])
-            new_string += "</waypoint>\n"
-            waypoint_strings.append(new_string)
-        return waypoint_strings
-
-    #TODO: Adjust to use new format
-    #Just exports to a given file
-    def save_to_file(waypoint_strings, filename="output.txt"):
-        f = open(filename, "w+")
-        for point in waypoint_strings:
-            f.write(point)
+    #Saves the tree to the file specified by self.file_out
+    def save_to_file(self):
+        f = open(self.file_out, "w+")
+        f.write(etree.tostring(self.root_elem, pretty_print=True))
         f.close()
 
     #Functions for individual commands
@@ -331,7 +237,7 @@ class WorldGenerator:
         #of movement from point to point.
         ux = dx/tot_len
         uy = dy/tot_len
-        dir = arctan2(uy, ux)
+        dir = atan2(uy, ux)
 
         #Set the poses of the interpolation-issue-dodging points to be
         #5 centimeters from the first and second points.The change in orientation
@@ -397,7 +303,8 @@ class WorldGenerator:
         #Adds our new point to the XML DOM
         root_elemt.append(new_point)
 
-    #Sets current default material
+    #Sets current material to be used. If the current material
+    #hasn't been used before, it's given a new place in the materials array
     def material_func(self, args, root_elem):
         if args[0] == "default":
             self.material = self.commands["material"]["default"]
@@ -416,6 +323,8 @@ class WorldGenerator:
         index = self.material_array.index(self.material)
         self.wall_array[i].append(LineString([(x1, y1), (x2, y2)]))
 
+    #TODO: Make use materials instead of just the grey wall
+    #TODO: Redo the handling of doors and walls to be more consistent
     #Function to create a doorway in a wall. This is the specific reason
     #for handling the walls in a postprocessing function (defined lower down).
     #This would be a complete pain to code and really inefficient if we were to
@@ -504,7 +413,7 @@ class WorldGenerator:
 
     #TODO
     def zone_func(self, args, root_elem):
-        return 0
+        print("To be implemented")
 
     #Adds a model element to the current root element
     def model_func(self, args, root_elem):
@@ -591,11 +500,81 @@ class WorldGenerator:
             print(f"Line {self.line_number}")
             exit()
 
-
-    #TODO
     #Processes the wall array
-    def wall_postprocess(self):
-        return 0
+    def walls_postprocess(self):
+        if len(self.wall_array) > 0:
+            i = 0
+            for wall_subarray in self.wall_array:
+                for wall in wall_subarray:
+                    points = wall.coords
+                    x1 = points[0][0]
+                    y1 = points[0][1]
+                    x2 = points[1][0]
+                    y2 = points[1][1]
+
+                    #Find our theta and our length
+                    dx = x2 - x1
+                    dy = y2 - y1
+                    theta = atan2(dy,dx)
+                    length = sqrt(dx**2 + dy**2)
+
+                    #Sets up the geometry that's going to be needed
+                    #for both collision and visual elements
+                    geom_elem = etree.Element("geometry")
+                    geom_elem.append(etree.Element("box"))
+                    geom_elem[0].append(etree.Element("size"))
+                    geom_elem[0][0].text = f"{str(length)} 0.1 2.8"
+
+                    #This is, without a doubt, some of the ugliest non-prototype code I've written,
+                    #and for that I apologize.
+                    #There's just a bunch of little elements that need to be included
+                    #in the wall model, and this is the best way I can think of handling that.
+                    wall_elem = etree.Element("model", attrib={"name" : f"wall_{str(i)}"})
+                    wall_elem.append(etree.Element("static"))
+                    wall_elem[0].text = "1"
+                    wall_elem.append(etree.Element("link", attrib={"name" : "link"}))
+                    wall_elem[1].append(etree.Element("collision", attrib={"name" : "collision"}))
+                    wall_elem[1][0].append(deepcopy(geom_elem))
+                    wall_elem[1][0].append(etree.Element("max_contacts"))
+                    wall_elem[1][0][0].text = "10"
+                    wall_elem.append(etree.Element("visual", attrib={"name" : "visual"}))
+                    wall_elem[1][1].append(etree.Element("cast_shadows"))
+                    wall_elem[1][1][0].text = "0"
+                    wall_elem[1][1].append(deepcopy(geom_elem))
+
+                    #Takes the material stored at the class level and
+                    #makes the uris for script and texture from it.
+                    #I can't think of a better way to do this at this point in time.
+                    #I may revisit this when I have a better understanding of how
+                    #textures and materials are done in SDF.
+                    material_base = self.material_array[i].split('/')[-1]
+                    wall_elem[1][1].append(etree.Element("script"))
+                    wall_elem[1][1][1].append(etree.Element("uri"))
+                    wall_elem[1][1][1][0].text = f"model://{material_base}/materials/scripts"
+                    wall_elem[1][1][1].append(etree.Element("uri"))
+                    wall_elem[1][1][1][1].text = f"model://{material_base}/materials/textures"
+                    wall_elem[1][1][1].append(etree.Element("name"))
+                    wall_elem[1][1][1][2].text = self.material_array[i]
+
+                    #The first pose adjusts the link pose. By default, the link's
+                    #origin is at its very center, meaning that placing it at
+                    #"0 0 0" in a model or world will put the overall center of the
+                    #link at "0 0 0". By shifting it up by half its height and
+                    #off by half its width, we make the "0 0 0" of the wall one end
+                    #of it, so running a wall from "0 0" to "1 0" will give us that
+                    #instead of a wall from "-0.5 0" to "0.5 0".
+                    wall_elem[1].append(etree.Element("pose"))
+                    wall_elem[1][2].text = f"{str(length/2)} 0 1.4 0 0 0"
+                    wall_elem.append(etree.Element("pose"))
+                    wall_elem[2].text = f"{str(x1)} {str(y1)} 0 0 0 {str(theta)}"
+
+                    #Tacks it onto our root element. In the future, I hope to adjust
+                    #this to be appendable to individual models. The reason I didn't
+                    #just make the wall function create the model and append it to the
+                    #above element is that I wasn't sure how to integrate that with
+                    #making the doorways with the door command.
+                    self.root_elem.append(wall_elem)
+                i += 1
 
     #Helper function to search for a specified element in
     #a tree.
@@ -618,3 +597,9 @@ class WorldGenerator:
             return False
         else:
             return True
+
+
+    def run(self):
+        self.process_lines(self.import_instructions(), self.root_elem, 0)
+        self.walls_postprocess()
+        self.save_to_file()
