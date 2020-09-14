@@ -1,7 +1,7 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import sys
 import math
-import copy
+from copy import deepcopy
 from math import atan2, sqrt
 from lxml import etree
 from shapely.geometry import MultiLineString, LineString
@@ -88,7 +88,7 @@ class WorldGenerator:
             "include" : {
                 "arg_count" : 2,
                 "arg_func"  : self.arg_count,
-                "cmd_error" : "To be implemented: Usage is 'include [path_to_file] [xml_element_to_find]'.\nUse 'None' as your XML element argument if you wish to import a file in its entirety",
+                "cmd_error" : "To be implemented: Usage is 'include [path_to_file] [xml_element_to_find]'.\nUse 'none' as your XML element argument if you wish to import a file in its entirety",
                 "cmd_func"  : self.include_func
             },
             "duplicate" : {
@@ -145,7 +145,7 @@ class WorldGenerator:
                     exit()
                 if count > level:
                     self.line_number -= 1
-                    lines = self.process_lines(lines, root_elem[last()], level + 1)
+                    lines = self.process_lines(lines, root_elem[-1], level + 1)
                 if count < level:
                     return lines
                 if len(lines) == 0:
@@ -171,17 +171,17 @@ class WorldGenerator:
 
             #Checks to makes sure that the command exists
             if not command in self.commands:
-                print f"Error: Command {command} not recognized (line {self.line_number})"
+                print(f"Error: Command {command} not recognized (line {self.line_number})")
                 exit()
 
             #Checks to make sure the number of arguments is correct
             if not self.commands[command]["arg_func"](command, line):
-                print f"Error: Incorrect number of arguments for {command} :\n{self.commands[command]["cmd_error"]}\n(line {self.line_number})"
+                print(f"Error: Incorrect number of arguments for {command} :\n{self.commands[command]['cmd_error']}\n(line {self.line_number})")
                 exit()
 
             try:
                 #Run command function associated with command
-                self.commands[command]["cmd_func"](line, root_elem)
+                self.commands[command]['cmd_func'](line, root_elem)
             except:
                 print(f"Unknown error when running command {command} on line {self.line_number}.\nTry checking the command's arguments are the correct type")
         #Should return an empty array.
@@ -198,12 +198,13 @@ class WorldGenerator:
     #Saves the tree to the file specified by self.file_out
     def save_to_file(self):
         f = open(self.file_out, "w+")
-        f.write(etree.tostring(self.root_elem, pretty_print=True))
+        f.write('<?xml version="1.0" ?>\n')
+        f.write(etree.tostring(self.root_elem, pretty_print=True).decode())
         f.close()
 
     #Functions for individual commands
     def goto_func(self, args, root_elem):
-        if self.actor_speed = None:
+        if self.actor_speed == None:
             self.speed_func(["default"], root_elem)
 
         traj_elem = root_elem.find("script").find("trajectory")
@@ -306,22 +307,24 @@ class WorldGenerator:
     #Sets current material to be used. If the current material
     #hasn't been used before, it's given a new place in the materials array
     def material_func(self, args, root_elem):
-        if args[0] == "default":
+        material = args[0]
+        if args[0] == 'default':
             self.material = self.commands["material"]["default"]
+            material = self.material
         else:
-            self.material = args[0]
-        if not args[0] in self.material_array:
-            self.material_array.append(args[0])
+            self.material = material
+        if not material in self.material_array:
+            self.material_array.append(material)
             self.wall_array.append([])
 
     #Function to append a LineString representing a wall to the appropriate
     #wall_array index, corresponding to the associated material index
     def wall_func(self, args, root_elem):
         x1, y1, x2, y2 = [float(arg) for arg in args]
-        if self.material = None:
+        if self.material == None:
             self.material_func(["default"], self.root_elem)
         index = self.material_array.index(self.material)
-        self.wall_array[i].append(LineString([(x1, y1), (x2, y2)]))
+        self.wall_array[index].append(LineString([(x1, y1), (x2, y2)]))
 
     #TODO: Make use materials instead of just the grey wall
     #TODO: Redo the handling of doors and walls to be more consistent
@@ -349,6 +352,7 @@ class WorldGenerator:
         for wall in self.wall_array[i][j].difference(door_line):
             self.wall_array[i].append(wall)
 
+
         del self.wall_array[i][j]
 
 
@@ -365,46 +369,47 @@ class WorldGenerator:
         #Makes the initial door_top element
         door_top = etree.Element("model", name=f"doorway_{self.door_count}")
         door_top.append(etree.Element("static"))
-        door_top[0].text = 1
+        door_top[0].text = "1"
 
         door_top.append(etree.Element("pose"))
-        door_top[1].text = f"{round(door_line.length/2)} 0 0 2.4 0 0"
+        door_top[1].text = f"{p1[0]} {p1[1]} 0 0 0 {theta}"
 
         link = etree.Element("link", name="link")
+        link.append(etree.Element("pose"))
+        link[0].text = f"{door_line.length/2} 0 2.4 0 0 0"
 
         #Making box to be appended to both the visual and collision elements.
         #Should be able to append to first then deepcopy to second
         box = etree.Element("box")
         box.append(etree.Element("size"))
-        box[0].text = f"{round(door_line.length, 2)} 0.2 0.8"
+        box[0].text = f"{round(door_line.length, 2)} 0.1 0.8"
 
-        geometry = etree.Element("geometry").append(box)
+        geometry = etree.Element("geometry")
+        geometry.append(box)
 
         #Appending things to the collision element of the model
-        door_top.append(etree.Element("collision"))
-        door_top[2].append(copy.deepcopy(geometry))
-        door_top[2].append("max_contacts")
-        door_top[2][1].text = "10"
-        door_top[2].append("surface")
-        door_top[2][2].append("bounce")
-        door_top[2][2].append("friction")
-        door_top[2][2][1].append("ode")
-        door_top[2][2].append("contact")
-        door_top[2][2][2].append("ode")
+        link.append(etree.Element("collision", attrib={"name" : "collision"}))
+        link[1].append(deepcopy(geometry))
+        link[1].append(etree.Element("max_contacts"))
+        link[1][1].text = "10"
 
         #Appending things to the visual element of the model
-        door_top.append(etree.Element("visual"))
-        door_top[3].append(etree.Element("cast_shadows"))
-        door_top[3][0].text = "1"
-        door_top[3].append(copy.deepcopy(geometry))
-        door_top[4].append("material")
-        door_top[4][0].append("script")
-        door_top[4][0][0].append("uri")
-        door_top[4][0][0][0].text = "model://grey_wall/materials/scripts"
-        door_top[4][0][0].append("uri")
-        door_top[4][0][0][1].text = "model://grey_wall/materials/textures"
-        door_top[4][0][0].append("name")
-        door_top[4][0][0][2].text = "vrc/grey_wall"
+        link.append(etree.Element("visual", attrib={"name" : "visual"}))
+        link[2].append(etree.Element("cast_shadows"))
+        link[2][0].text = "1"
+        link[2].append(deepcopy(geometry))
+        link[2].append(etree.Element("material"))
+        link[2][2].append(etree.Element("script"))
+        link[2][2][0].append(etree.Element("uri"))
+        link[2][2][0][0].text = "model://grey_wall/materials/scripts"
+        link[2][2][0].append(etree.Element("uri"))
+        link[2][2][0][1].text = "model://grey_wall/materials/textures"
+        link[2][2][0].append(etree.Element("name"))
+        link[2][2][0][2].text = self.material
+
+        door_top.append(link)
+
+        root_elem.append(door_top)
 
         #I don't believe there's anything else that needs to be added
         #but if any errors are encountered, this may be where additional
@@ -448,14 +453,21 @@ class WorldGenerator:
 
     #Includes either XML or text from another file
     def include_func(self, args, root_elem):
-        if args[1].lower != "none":
+        if args[1] == 'none':
             f = open(args[0])
+            if root_elem.text == None:
+                root_elem.text = ""
             root_elem.text += f.read()
             f.close()
         else:
-            tree = etree.ElementTree.parse(args[0])
+            f = open(args[0])
+            tree = etree.parse(f)
+            f.close()
             tree_root = tree.getroot()
-            root_elem.append(copy.deepcopy(self.find_elem(args[1], tree_root)))
+            elem_to_use = self.find_elem(args[1], tree_root)
+            if elem_to_use == None:
+                elem_to_use = self.find_tag(args[1], tree_root)
+            root_elem.append(elem_to_use)
 
     #Duplicates an element, giving it a new pose and name
     #Note: Doesn't work with actors since they use waypoints
@@ -468,9 +480,10 @@ class WorldGenerator:
         if(new_elem == None):
             print(f"Error: Element {args[0]} does not exist (line {self.line_number})")
             exit()
-        new_elem.attrib["name"] = args[1]
-        old_pose = new_elem[pose].text.split()
-        new_elem["pose"].text = f"{args[2]} {args[3]} {old_pose[2]} {old_pose[3]} {old_pose[4]} {args[4]}"
+        new_elem.attrib['name'] = args[1]
+        pose_elem = self.find_tag("pose", new_elem)
+        old_pose = pose_elem.text.split()
+        pose_elem.text = f"{args[2]} {args[3]} {old_pose[2]} {old_pose[3]} {old_pose[4]} {args[4]}"
         root_elem.append(new_elem)
 
     #Function to create a new element with a specific tag that isn't
@@ -490,10 +503,10 @@ class WorldGenerator:
         for word in args:
             end_string = end_string + word + " "
         #Removes trailing space
-        end_string.pop(len(end_string) - 1)
+        #end_string.pop(len(end_string) - 1)
         if type == "set":
             root_elem.text = end_string
-        else if type == "add":
+        elif type == "add":
             root_elem.text = root_elem.text + " " + end_string
         else:
             print(f"Error: Text command type '{type}' not recognized. Valid types are 'set' and 'add'")
@@ -504,6 +517,7 @@ class WorldGenerator:
     def walls_postprocess(self):
         if len(self.wall_array) > 0:
             i = 0
+            name_num = 0
             for wall_subarray in self.wall_array:
                 for wall in wall_subarray:
                     points = wall.coords
@@ -529,7 +543,7 @@ class WorldGenerator:
                     #and for that I apologize.
                     #There's just a bunch of little elements that need to be included
                     #in the wall model, and this is the best way I can think of handling that.
-                    wall_elem = etree.Element("model", attrib={"name" : f"wall_{str(i)}"})
+                    wall_elem = etree.Element("model", attrib={"name" : f"wall_{str(name_num)}"})
                     wall_elem.append(etree.Element("static"))
                     wall_elem[0].text = "1"
                     wall_elem.append(etree.Element("link", attrib={"name" : "link"}))
@@ -537,24 +551,28 @@ class WorldGenerator:
                     wall_elem[1][0].append(deepcopy(geom_elem))
                     wall_elem[1][0].append(etree.Element("max_contacts"))
                     wall_elem[1][0][0].text = "10"
-                    wall_elem.append(etree.Element("visual", attrib={"name" : "visual"}))
+                    wall_elem[1].append(etree.Element("visual", attrib={"name" : "visual"}))
                     wall_elem[1][1].append(etree.Element("cast_shadows"))
                     wall_elem[1][1][0].text = "0"
                     wall_elem[1][1].append(deepcopy(geom_elem))
 
+
+                    #TODO: Figure out what's up with Gazebo crashing when
+                    #different things are entered for script and texture URIs.
                     #Takes the material stored at the class level and
                     #makes the uris for script and texture from it.
                     #I can't think of a better way to do this at this point in time.
                     #I may revisit this when I have a better understanding of how
                     #textures and materials are done in SDF.
                     material_base = self.material_array[i].split('/')[-1]
-                    wall_elem[1][1].append(etree.Element("script"))
-                    wall_elem[1][1][1].append(etree.Element("uri"))
-                    wall_elem[1][1][1][0].text = f"model://{material_base}/materials/scripts"
-                    wall_elem[1][1][1].append(etree.Element("uri"))
-                    wall_elem[1][1][1][1].text = f"model://{material_base}/materials/textures"
-                    wall_elem[1][1][1].append(etree.Element("name"))
-                    wall_elem[1][1][1][2].text = self.material_array[i]
+                    wall_elem[1][1].append(etree.Element("material"))
+                    wall_elem[1][1][2].append(etree.Element("script"))
+                    wall_elem[1][1][2][0].append(etree.Element("uri"))
+                    wall_elem[1][1][2][0][0].text = f"model://grey_wall/materials/scripts"
+                    wall_elem[1][1][2][0].append(etree.Element("uri"))
+                    wall_elem[1][1][2][0][1].text = f"model://grey_wall/materials/textures"
+                    wall_elem[1][1][2][0].append(etree.Element("name"))
+                    wall_elem[1][1][2][0][2].text = self.material_array[i]
 
                     #The first pose adjusts the link pose. By default, the link's
                     #origin is at its very center, meaning that placing it at
@@ -573,16 +591,27 @@ class WorldGenerator:
                     #just make the wall function create the model and append it to the
                     #above element is that I wasn't sure how to integrate that with
                     #making the doorways with the door command.
-                    self.root_elem.append(wall_elem)
+                    self.root_elem[0].append(wall_elem)
+                    name_num += 1
                 i += 1
 
     #Helper function to search for a specified element in
     #a tree.
     def find_elem(self, elem_name, root_elem):
-        if root_elem.tag.lower() == elem_name.lower():
+        if 'name' in root_elem.attrib and root_elem.get('name').lower() == elem_name.lower():
             return root_elem
         for elem in root_elem:
             if self.find_elem(elem_name, elem) != None:
+                return elem
+        return None
+
+    #Helper function to search for the first of a given tag in
+    #a tree.
+    def find_tag(self, elem_name, root_elem):
+        if root_elem.tag.lower() == elem_name.lower():
+            return root_elem
+        for elem in root_elem:
+            if self.find_tag(elem_name, elem) != None:
                 return elem
         return None
 
@@ -603,3 +632,8 @@ class WorldGenerator:
         self.process_lines(self.import_instructions(), self.root_elem, 0)
         self.walls_postprocess()
         self.save_to_file()
+
+
+if __name__ == "__main__":
+    worldGen = WorldGenerator()
+    worldGen.run()
