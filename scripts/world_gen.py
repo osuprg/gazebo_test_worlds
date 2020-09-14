@@ -207,24 +207,24 @@ class WorldGenerator:
         if self.actor_speed == None:
             self.speed_func(["default"], root_elem)
 
-        traj_elem = root_elem.find("script").find("trajectory")
+        traj_elem = self.find_tag("trajectory", self.find_tag("script", root_elem))
 
-        last_waypoint = traj_elem[len(root_elem) - 1]
+        last_waypoint = traj_elem[-1]
 
         #Need to split out all of the elements of the last waypoint's
         #pose.
-        last_pos_full = last_waypoint[0].text.split()
+        last_pos_full = last_waypoint[1].text.split()
 
         #Position 1 is the position of the last waypoint pose.
         #Position 2 is the position of the new waypoint pose.
         #Time 1 is the timestamp of the last waypoint.
         pos_1 = [float(last_pos_full[0]), float(last_pos_full[1])]
         pos_2 = [float(args[0]), float(args[1]), float(args[2])]
-        time_1 = float(last_waypoint[1].text)
+        time_1 = float(last_waypoint[0].text)
         dx = pos_2[0] - pos_1[0]
         dy = pos_2[1] - pos_1[1]
         tot_len = math.sqrt(dx**2 + dy**2)
-        dt = round(tot_len/self.actor_speed, 2)
+        dt = tot_len/self.actor_speed
 
         #The following unit vectors, direction, and interp 1 and 2
         #are used to get around interpolation issues with SDF.
@@ -279,19 +279,27 @@ class WorldGenerator:
 
     #Sets class-level speed
     def speed_func(self, args, root_elem):
-        self.actor_speed = args[0]
+        if args[0] == 'default':
+            self.actor_speed = self.commands['speed']['default']
+        else:
+            self.actor_speed = float(args[0])
 
     #Makes current actor wait for a set number of seconds
     def wait_func(self, args, root_elem):
-        #Pulls out last waypoint
-        last_waypoint = root_elem[len(root_elem) - 1]
+        traj_elem = self.find_tag("trajectory", self.find_tag("script", root_elem))
+
+        last_waypoint = traj_elem[-1]
+
+        #Need to split out all of the elements of the last waypoint's
+        #pose.
+        last_pos_full = last_waypoint[1].text
 
         #Makes a new XML element
         new_point = etree.Element("waypoint")
 
         #Figures out all of our time differences
         dt = float(args[0])
-        t1 = float(last_waypoint[1].text)
+        t1 = float(last_waypoint[0].text)
         t2 = t1 + dt
 
         #Appends our new time and then the same pose
@@ -299,10 +307,10 @@ class WorldGenerator:
         new_point[0].text = str(t2)
 
         new_point.append(etree.Element("pose"))
-        new_point[1].text = last_waypoint[0].text
+        new_point[1].text = last_pos_full
 
         #Adds our new point to the XML DOM
-        root_elemt.append(new_point)
+        traj_elem.append(new_point)
 
     #Sets current material to be used. If the current material
     #hasn't been used before, it's given a new place in the materials array
@@ -440,16 +448,18 @@ class WorldGenerator:
 
 
 
-        trajectory = etree.Element("trajectory", id="0", type="walking")
+        trajectory = etree.Element("trajectory")
+        trajectory.attrib["id"] = "0"
+        trajectory.attrib["type"] = "walking"
         trajectory.append(etree.Element("waypoint"))
         trajectory[0].append(etree.Element("time"))
         trajectory[0][0].text = "0"
         trajectory[0].append(etree.Element("pose"))
         trajectory[0][1].text = f"{args[1]} {args[2]} 0 0 0 {args[3]}"
 
+        actor[0].append(trajectory)
 
         root_elem.append(actor)
-
 
     #Includes either XML or text from another file
     def include_func(self, args, root_elem):
