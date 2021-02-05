@@ -1,0 +1,75 @@
+<?xml version="1.0" ?>
+<sdf>
+  <actor>
+    <include>
+       <uri>model://iRobotCreate</uri>
+    </include>
+    <script>
+      <loop>true</loop>
+      <delay_start>0</delay_start>
+      <trajectory id="0" type="walking">
+        <waypoint>
+          <time>0</time>
+          <pose>-3 -3 0 0 0 0</pose>
+        </waypoint>
+        <waypoint>
+          <time>0.05</time>
+          <pose>-3.0 -3.05 0 0 0 -1.5707963267948966</pose>
+        </waypoint>
+        <waypoint>
+          <time>1.95</time>
+          <pose>-3.0 -4.95 0 0 0 -1.5707963267948966</pose>
+        </waypoint>
+        <waypoint>
+          <time>2.0</time>
+          <pose>-3.0 -5.0 0 0 0 0.0</pose>
+        </waypoint>
+        <waypoint>
+          <time>2.125</time>
+          <pose>-3.05 -5.0 0 0 0 3.141592653589793</pose>
+        </waypoint>
+        <waypoint>
+          <time>2.675</time>
+          <pose>-4.95 -5.0 0 0 0 3.141592653589793</pose>
+        </waypoint>
+        <waypoint>
+          <time>2.8</time>
+          <pose>-5.0 -5.0 0 0 0 0.0</pose>
+        </waypoint>
+        <waypoint>
+          <time>2.8249999999999997</time>
+          <pose>-5.0 -4.95 0 0 0 1.5707963267948966</pose>
+        </waypoint>
+        <waypoint>
+          <time>6.775</time>
+          <pose>-5.0 -3.05 0 0 0 1.5707963267948966</pose>
+        </waypoint>
+        <waypoint>
+          <time>6.8</time>
+          <pose>-5.0 -3.0 0 0 0 0.0</pose>
+        </waypoint>
+        <waypoint>
+          <time>6.85</time>
+          <pose>-4.95 -3.0 0 0 0 0.0</pose>
+        </waypoint>
+        <waypoint>
+          <time>8.75</time>
+          <pose>-3.05 -3.0 0 0 0 0.0</pose>
+        </waypoint>
+        <waypoint>
+          <time>8.8</time>
+          <pose>-3.0 -3.0 0 0 0 0.0</pose>
+        </waypoint>
+      </trajectory>
+    </script>
+    <skin>
+      <filename>walk.dae </filename>
+      <scale>1.0 </scale>
+    </skin>
+    <animation name="walking">
+      <filename>walk.dae </filename>
+      <scale>1.0 </scale>
+      <interpolate_x>true </interpolate_x>
+    </animation>
+  </actor>
+</sdf>

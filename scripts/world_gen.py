@@ -419,6 +419,8 @@ class WorldGenerator:
 
         root_elem.append(door_top)
 
+        self.door_count += 1
+        
         #I don't believe there's anything else that needs to be added
         #but if any errors are encountered, this may be where additional
         #things need to be inserted
@@ -643,7 +645,7 @@ class WorldGenerator:
         self.walls_postprocess()
         self.save_to_file()
 
-
+#TODO: Set things up to use arguments.
 if __name__ == "__main__":
     worldGen = WorldGenerator()
     worldGen.run()

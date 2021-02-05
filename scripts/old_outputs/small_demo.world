@@ -1,0 +1,224 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <world name="default">
+    <model name="doorway_0">
+      <static>1</static>
+      <pose>2.0 3.0 0 0 0 0.0</pose>
+      <link name="link">
+        <pose>0.5 0 2.4 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>1.0 0.1 0.8</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>1</cast_shadows>
+          <geometry>
+            <box>
+              <size>1.0 0.1 0.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>vrc/grey_wall</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <actor name="walker_1">
+      <script>
+        <loop>true</loop>
+        <delay_start>0</delay_start>
+        <trajectory id="0" type="walking">
+          <waypoint>
+            <time>0</time>
+            <pose>0 0 0 0 0 0</pose>
+          </waypoint>
+          <waypoint>
+            <time>0.09000000000000001</time>
+            <pose>0.035355339059327376 0.035355339059327376 0 0 0 0.7853981633974483</pose>
+          </waypoint>
+          <waypoint>
+            <time>1.4813484026367723</time>
+            <pose>1.9646446609406727 1.9646446609406727 0 0 0 0.7853981633974483</pose>
+          </waypoint>
+          <waypoint>
+            <time>1.5713484026367723</time>
+            <pose>2.0 2.0 0 0 0 0.0</pose>
+          </waypoint>
+          <waypoint>
+            <time>2.5713484026367723</time>
+            <pose>2.0 2.0 0 0 0 0.0</pose>
+          </waypoint>
+          <waypoint>
+            <time>2.621348402636772</time>
+            <pose>1.9646446609406727 1.9646446609406727 0 0 0 -2.356194490192345</pose>
+          </waypoint>
+          <waypoint>
+            <time>5.349775527382963</time>
+            <pose>0.035355339059327376 0.035355339059327376 0 0 0 -2.356194490192345</pose>
+          </waypoint>
+          <waypoint>
+            <time>5.399775527382962</time>
+            <pose>0.0 0.0 0 0 0 0.0</pose>
+          </waypoint>
+          <waypoint>
+            <time>6.399775527382962</time>
+            <pose>0.0 0.0 0 0 0 0.0</pose>
+          </waypoint>
+        </trajectory>
+      </script>
+      <skin>
+        <filename>walk.dae </filename>
+        <scale>1.0 </scale>
+      </skin>
+      <animation name="walking">
+        <filename>walk.dae </filename>
+        <scale>1.0 </scale>
+        <interpolate_x>true </interpolate_x>
+      </animation>
+    </actor>
+    <include>
+      <uri>model://sun </uri>
+    </include>
+    <include>
+      <uri>model://ground_plane </uri>
+    </include>
+    <model name="wall_0">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>10<box><size>5.0 0.1 2.8</size></box></geometry>
+          <max_contacts/>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <box>
+              <size>5.0 0.1 2.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>vrc/grey_wall</name>
+            </script>
+          </material>
+        </visual>
+        <pose>2.5 0 1.4 0 0 0</pose>
+      </link>
+      <pose>5.0 3.0 0 0 0 1.5707963267948966</pose>
+    </model>
+    <model name="wall_1">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>10<box><size>5.0 0.1 2.8</size></box></geometry>
+          <max_contacts/>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <box>
+              <size>5.0 0.1 2.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>vrc/grey_wall</name>
+            </script>
+          </material>
+        </visual>
+        <pose>2.5 0 1.4 0 0 0</pose>
+      </link>
+      <pose>5.0 8.0 0 0 0 3.141592653589793</pose>
+    </model>
+    <model name="wall_2">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>10<box><size>5.0 0.1 2.8</size></box></geometry>
+          <max_contacts/>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <box>
+              <size>5.0 0.1 2.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>vrc/grey_wall</name>
+            </script>
+          </material>
+        </visual>
+        <pose>2.5 0 1.4 0 0 0</pose>
+      </link>
+      <pose>0.0 8.0 0 0 0 -1.5707963267948966</pose>
+    </model>
+    <model name="wall_3">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>10<box><size>2.0 0.1 2.8</size></box></geometry>
+          <max_contacts/>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <box>
+              <size>2.0 0.1 2.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>vrc/grey_wall</name>
+            </script>
+          </material>
+        </visual>
+        <pose>1.0 0 1.4 0 0 0</pose>
+      </link>
+      <pose>0.0 3.0 0 0 0 0.0</pose>
+    </model>
+    <model name="wall_4">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>10<box><size>2.0 0.1 2.8</size></box></geometry>
+          <max_contacts/>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <box>
+              <size>2.0 0.1 2.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>vrc/grey_wall</name>
+            </script>
+          </material>
+        </visual>
+        <pose>1.0 0 1.4 0 0 0</pose>
+      </link>
+      <pose>3.0 3.0 0 0 0 0.0</pose>
+    </model>
+  </world>
+</sdf>

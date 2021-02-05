@@ -1,0 +1,726 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <world name="default">
+    <model name="doorway_0">
+      <static>1</static>
+      <pose>4.25 0.0 0 0 0 0.0</pose>
+      <link name="link">
+        <pose>0.5 0 2.4 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>1.0 0.1 0.8</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>1</cast_shadows>
+          <geometry>
+            <box>
+              <size>1.0 0.1 0.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="doorway_1">
+      <static>1</static>
+      <pose>0.0 6.25 0 0 0 1.5707963267948966</pose>
+      <link name="link">
+        <pose>0.5 0 2.4 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>1.0 0.1 0.8</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>1</cast_shadows>
+          <geometry>
+            <box>
+              <size>1.0 0.1 0.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="doorway_2">
+      <static>1</static>
+      <pose>2.0 5.5 0 0 0 0.0</pose>
+      <link name="link">
+        <pose>0.5 0 2.4 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>1.0 0.1 0.8</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>1</cast_shadows>
+          <geometry>
+            <box>
+              <size>1.0 0.1 0.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="doorway_3">
+      <static>1</static>
+      <pose>4.5 5.5 0 0 0 0.0</pose>
+      <link name="link">
+        <pose>0.4950000000000001 0 2.4 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.99 0.1 0.8</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>1</cast_shadows>
+          <geometry>
+            <box>
+              <size>0.99 0.1 0.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="doorway_4">
+      <static>1</static>
+      <pose>5.5 4.5 0 0 0 1.5707963267948966</pose>
+      <link name="link">
+        <pose>0.5 0 2.4 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>1.0 0.1 0.8</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>1</cast_shadows>
+          <geometry>
+            <box>
+              <size>1.0 0.1 0.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="doorway_5">
+      <static>1</static>
+      <pose>5.5 3.0 0 0 0 1.5707963267948966</pose>
+      <link name="link">
+        <pose>0.375 0 2.4 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.75 0.1 0.8</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>1</cast_shadows>
+          <geometry>
+            <box>
+              <size>0.75 0.1 0.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <model name="doorway_6">
+      <static>1</static>
+      <pose>4.0 2.5 0 0 0 1.5707963267948966</pose>
+      <link name="link">
+        <pose>0.75 0 2.4 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>1.5 0.1 0.8</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>1</cast_shadows>
+          <geometry>
+            <box>
+              <size>1.5 0.1 0.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <include>
+      <uri>model://sun </uri>
+    </include>
+    <include>
+      <uri>model://ground_plane </uri>
+    </include>
+    <model name="floor">
+      <pose>0 0 0 0 0 0</pose>
+      <static>1 </static>
+      <link name="link">
+        <pose>4.75 4 0 0 0 0 </pose>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>9.5 8 0.005 </size>
+            </box>
+          </geometry>
+          <cast_shadows>0 </cast_shadows>
+          <material>
+            <script>
+              <name>Gazebo/DarkGrey </name>
+            </script>
+          </material>
+        </visual>
+      </link>
+    </model>
+    <actor name="walker_1">
+      <script>
+        <loop>true</loop>
+        <delay_start>0</delay_start>
+        <trajectory id="0" type="walking">
+          <waypoint>
+            <time>0</time>
+            <pose>-3 -3 0 0 0 0</pose>
+          </waypoint>
+          <waypoint>
+            <time>0.05</time>
+            <pose>-3.0 -3.05 0 0 0 -1.5707963267948966</pose>
+          </waypoint>
+          <waypoint>
+            <time>1.95</time>
+            <pose>-3.0 -4.95 0 0 0 -1.5707963267948966</pose>
+          </waypoint>
+          <waypoint>
+            <time>2.0</time>
+            <pose>-3.0 -5.0 0 0 0 0.0</pose>
+          </waypoint>
+          <waypoint>
+            <time>2.125</time>
+            <pose>-3.05 -5.0 0 0 0 3.141592653589793</pose>
+          </waypoint>
+          <waypoint>
+            <time>2.675</time>
+            <pose>-4.95 -5.0 0 0 0 3.141592653589793</pose>
+          </waypoint>
+          <waypoint>
+            <time>2.8</time>
+            <pose>-5.0 -5.0 0 0 0 0.0</pose>
+          </waypoint>
+          <waypoint>
+            <time>2.8249999999999997</time>
+            <pose>-5.0 -4.95 0 0 0 1.5707963267948966</pose>
+          </waypoint>
+          <waypoint>
+            <time>6.775</time>
+            <pose>-5.0 -3.05 0 0 0 1.5707963267948966</pose>
+          </waypoint>
+          <waypoint>
+            <time>6.8</time>
+            <pose>-5.0 -3.0 0 0 0 0.0</pose>
+          </waypoint>
+          <waypoint>
+            <time>6.85</time>
+            <pose>-4.95 -3.0 0 0 0 0.0</pose>
+          </waypoint>
+          <waypoint>
+            <time>8.75</time>
+            <pose>-3.05 -3.0 0 0 0 0.0</pose>
+          </waypoint>
+          <waypoint>
+            <time>8.8</time>
+            <pose>-3.0 -3.0 0 0 0 0.0</pose>
+          </waypoint>
+        </trajectory>
+      </script>
+      <skin>
+        <filename>walk.dae </filename>
+        <scale>1.0 </scale>
+      </skin>
+      <animation name="walking">
+        <filename>walk.dae </filename>
+        <scale>1.0 </scale>
+        <interpolate_x>true </interpolate_x>
+      </animation>
+    </actor>
+    <model name="wall_0">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>10<box><size>8.0 0.1 2.8</size></box></geometry>
+          <max_contacts/>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <box>
+              <size>8.0 0.1 2.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+        <pose>4.0 0 1.4 0 0 0</pose>
+      </link>
+      <pose>9.5 0.0 0 0 0 1.5707963267948966</pose>
+    </model>
+    <model name="wall_1">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>10<box><size>9.5 0.1 2.8</size></box></geometry>
+          <max_contacts/>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <box>
+              <size>9.5 0.1 2.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+        <pose>4.75 0 1.4 0 0 0</pose>
+      </link>
+      <pose>9.5 8.0 0 0 0 3.141592653589793</pose>
+    </model>
+    <model name="wall_2">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>10<box><size>4.0 0.1 2.8</size></box></geometry>
+          <max_contacts/>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <box>
+              <size>4.0 0.1 2.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+        <pose>2.0 0 1.4 0 0 0</pose>
+      </link>
+      <pose>5.5 4.5 0 0 0 0.0</pose>
+    </model>
+    <model name="wall_3">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>10<box><size>2.5 0.1 2.8</size></box></geometry>
+          <max_contacts/>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <box>
+              <size>2.5 0.1 2.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+        <pose>1.25 0 1.4 0 0 0</pose>
+      </link>
+      <pose>3.5 5.5 0 0 0 1.5707963267948966</pose>
+    </model>
+    <model name="wall_4">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>10<box><size>4.25 0.1 2.8</size></box></geometry>
+          <max_contacts/>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <box>
+              <size>4.25 0.1 2.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+        <pose>2.125 0 1.4 0 0 0</pose>
+      </link>
+      <pose>0.0 0.0 0 0 0 0.0</pose>
+    </model>
+    <model name="wall_5">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>10<box><size>4.25 0.1 2.8</size></box></geometry>
+          <max_contacts/>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <box>
+              <size>4.25 0.1 2.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+        <pose>2.125 0 1.4 0 0 0</pose>
+      </link>
+      <pose>5.25 0.0 0 0 0 0.0</pose>
+    </model>
+    <model name="wall_6">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>10<box><size>0.75 0.1 2.8</size></box></geometry>
+          <max_contacts/>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <box>
+              <size>0.75 0.1 2.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+        <pose>0.375 0 1.4 0 0 0</pose>
+      </link>
+      <pose>0.0 8.0 0 0 0 -1.5707963267948966</pose>
+    </model>
+    <model name="wall_7">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>10<box><size>6.25 0.1 2.8</size></box></geometry>
+          <max_contacts/>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <box>
+              <size>6.25 0.1 2.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+        <pose>3.125 0 1.4 0 0 0</pose>
+      </link>
+      <pose>0.0 6.25 0 0 0 -1.5707963267948966</pose>
+    </model>
+    <model name="wall_8">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>10<box><size>2.0 0.1 2.8</size></box></geometry>
+          <max_contacts/>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <box>
+              <size>2.0 0.1 2.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+        <pose>1.0 0 1.4 0 0 0</pose>
+      </link>
+      <pose>0.0 5.5 0 0 0 0.0</pose>
+    </model>
+    <model name="wall_9">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>10<box><size>1.5 0.1 2.8</size></box></geometry>
+          <max_contacts/>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <box>
+              <size>1.5 0.1 2.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+        <pose>0.75 0 1.4 0 0 0</pose>
+      </link>
+      <pose>3.0 5.5 0 0 0 0.0</pose>
+    </model>
+    <model name="wall_10">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>10<box><size>0.009999999999999787 0.1 2.8</size></box></geometry>
+          <max_contacts/>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <box>
+              <size>0.009999999999999787 0.1 2.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+        <pose>0.004999999999999893 0 1.4 0 0 0</pose>
+      </link>
+      <pose>5.49 5.5 0 0 0 0.0</pose>
+    </model>
+    <model name="wall_11">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>10<box><size>2.5 0.1 2.8</size></box></geometry>
+          <max_contacts/>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <box>
+              <size>2.5 0.1 2.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+        <pose>1.25 0 1.4 0 0 0</pose>
+      </link>
+      <pose>5.5 5.5 0 0 0 1.5707963267948966</pose>
+    </model>
+    <model name="wall_12">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>10<box><size>3.0 0.1 2.8</size></box></geometry>
+          <max_contacts/>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <box>
+              <size>3.0 0.1 2.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+        <pose>1.5 0 1.4 0 0 0</pose>
+      </link>
+      <pose>5.5 0.0 0 0 0 1.5707963267948966</pose>
+    </model>
+    <model name="wall_13">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>10<box><size>0.75 0.1 2.8</size></box></geometry>
+          <max_contacts/>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <box>
+              <size>0.75 0.1 2.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+        <pose>0.375 0 1.4 0 0 0</pose>
+      </link>
+      <pose>5.5 3.75 0 0 0 1.5707963267948966</pose>
+    </model>
+    <model name="wall_14">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>10<box><size>2.5 0.1 2.8</size></box></geometry>
+          <max_contacts/>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <box>
+              <size>2.5 0.1 2.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+        <pose>1.25 0 1.4 0 0 0</pose>
+      </link>
+      <pose>4.0 0.0 0 0 0 1.5707963267948966</pose>
+    </model>
+    <model name="wall_15">
+      <static>1</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>10<box><size>1.5 0.1 2.8</size></box></geometry>
+          <max_contacts/>
+        </collision>
+        <visual name="visual">
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <box>
+              <size>1.5 0.1 2.8</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://grey_wall/materials/scripts</uri>
+              <uri>model://grey_wall/materials/textures</uri>
+              <name>Gazebo/Wood</name>
+            </script>
+          </material>
+        </visual>
+        <pose>0.75 0 1.4 0 0 0</pose>
+      </link>
+      <pose>4.0 4.0 0 0 0 1.5707963267948966</pose>
+    </model>
+  </world>
+</sdf>

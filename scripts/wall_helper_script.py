@@ -58,7 +58,7 @@ def process_walls(filename, walls):
         length = sqrt(dx**2 + dy**2)
 
 
-	internal_pose = "<pose>" + str(length/2) + " 0 1.4 0 -0 0</pose>\n"
+	    internal_pose = "<pose>" + str(length/2) + " 0 1.4 0 -0 0</pose>\n"
         size = "              <size>" + str(length) + " 0.05 2.8</size>\n"
         external_pose = "      <pose>" + str(x0) + " " + str(y0) + " -1 0 0 " + str(theta) + "</pose>\n"
         i = i + 1
